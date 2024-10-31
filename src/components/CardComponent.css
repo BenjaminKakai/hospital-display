@@ -1,0 +1,25 @@
+/* src/components/CardComponent.css */
+.card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 16px;
+    padding: 16px;
+    background-color: white;
+  }
+  
+  .card-header {
+    font-size: 1.25em;
+    font-weight: bold;
+  }
+  
+  .card-content {
+    margin: 10px 0;
+  }
+  
+  .card-footer {
+    text-align: right;
+    font-size: 0.875em;
+    color: #666;
+  }
+  

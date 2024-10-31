@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { subscribeToDisplayChanges } from '../services/displayControl';
+import { Card, CardContent, CardHeader, CardTitle } from './ui/Card'; // Adjust according to the relative path
 
 const HospitalDisplay = () => {
   const [displaySettings, setDisplaySettings] = useState({
@@ -7,7 +8,7 @@ const HospitalDisplay = () => {
     status: 'online',
     videoId: 'D8-Zus1IAvk'
   });
-  
+
   useEffect(() => {
     // Subscribe to Firebase changes
     const displayId = '1';
@@ -19,7 +20,7 @@ const HospitalDisplay = () => {
         }));
       }
     });
-    
+
     return () => unsubscribe();
   }, []);
 
@@ -98,7 +99,17 @@ const HospitalDisplay = () => {
       case 'schedule':
         return <ScheduleView />;
       default:
-        return <DefaultView />;
+        return (
+          <div className="p-4">
+            <DefaultView />
+            <Card 
+              title="Welcome to Our Hospital"
+              content="We are committed to providing quality healthcare."
+              footer="Contact us for more information"
+            />
+            {/* Add more Card components as needed */}
+          </div>
+        );
     }
   };
 

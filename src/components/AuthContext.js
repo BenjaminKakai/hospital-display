@@ -1,6 +1,7 @@
 import React, { useState, createContext, useContext } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+
+import Card, { CardHeader, CardTitle, CardContent } from './ui/Card'; // Adjust according to the relative path
 
 // Create auth context
 const AuthContext = createContext(null);

@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HospitalDisplay from './components/HospitalDisplay';
 import AdminPanel from './components/AdminPanel';
 import NavigationHeader from './components/NavigationHeader'; 
-import { AuthProvider, Login, ProtectedRoute } from './components/AuthContext'; // Corrected import
+import { AuthProvider, Login, ProtectedRoute } from './components/AuthContext'; 
+import NotFound from './components/NotFound'; // Import a NotFound component
 import './App.css';
 
 const App = () => {
@@ -12,18 +13,19 @@ const App = () => {
     <Router>
       <AuthProvider>
         <div className="App">
-          <NavigationHeader /> {/* Add NavigationHeader here */}
+          <NavigationHeader />
           <Routes>
             <Route path="/" element={<HospitalDisplay />} />
-            <Route path="/login" element={<Login />} /> {/* Add Login route */}
+            <Route path="/login" element={<Login />} />
             <Route
               path="/admin"
               element={
                 <ProtectedRoute>
-                  <AdminPanel /> {/* Protect AdminPanel route */}
+                  <AdminPanel />
                 </ProtectedRoute>
               }
             />
+            <Route path="*" element={<NotFound />} /> {/* Fallback route for 404 */}
           </Routes>
         </div>
       </AuthProvider>

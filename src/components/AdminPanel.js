@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { updateDisplaySettings, subscribeToDisplayChanges } from '../services/displayControl';
 import { AlertTriangle, Monitor, Bell, Calendar, Video, X } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Card, CardContent, CardHeader, CardTitle } from './ui/Card';
+import Alert from './ui/alert'; // Correct case
+import AlertDescription from './ui/AlertDescription'; // Updated path
 
 const AdminPanel = () => {
   const [loading, setLoading] = useState(false);
@@ -11,6 +12,8 @@ const AdminPanel = () => {
   const [emergencyMessage, setEmergencyMessage] = useState('');
   const [announcements, setAnnouncements] = useState(['']);
   const [scheduleItems, setScheduleItems] = useState([{ time: '', event: '' }]);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertType, setAlertType] = useState('info'); // Default alert type
 
   // Subscribe to current display settings
   useEffect(() => {
@@ -28,6 +31,11 @@ const AdminPanel = () => {
         status: 'online',
         videoId
       });
+      setAlertMessage('Default view set successfully!');
+      setAlertType('success'); // Set alert type to success
+    } catch (error) {
+      setAlertMessage('Failed to set default view!');
+      setAlertType('error'); // Set alert type to error
     } finally {
       setLoading(false);
     }
@@ -41,6 +49,11 @@ const AdminPanel = () => {
         status: 'online',
         emergencyMessage: emergencyMessage || 'Emergency evacuation required'
       });
+      setAlertMessage('Emergency view activated!');
+      setAlertType('success');
+    } catch (error) {
+      setAlertMessage('Failed to activate emergency view!');
+      setAlertType('error');
     } finally {
       setLoading(false);
     }
@@ -54,6 +67,11 @@ const AdminPanel = () => {
         status: 'online',
         announcements: announcements.filter(a => a.trim())
       });
+      setAlertMessage('Announcements set successfully!');
+      setAlertType('success');
+    } catch (error) {
+      setAlertMessage('Failed to set announcements!');
+      setAlertType('error');
     } finally {
       setLoading(false);
     }
@@ -67,6 +85,11 @@ const AdminPanel = () => {
         status: 'online',
         schedule: scheduleItems.filter(item => item.time && item.event)
       });
+      setAlertMessage('Schedule set successfully!');
+      setAlertType('success');
+    } catch (error) {
+      setAlertMessage('Failed to set schedule!');
+      setAlertType('error');
     } finally {
       setLoading(false);
     }
@@ -110,12 +133,14 @@ const AdminPanel = () => {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          {currentSettings && (
-            <Alert className="mb-6">
-              <AlertDescription>
-                Currently showing: {currentSettings.content} view
-              </AlertDescription>
+          {alertMessage && (
+            <Alert message={alertMessage} type={alertType} onClose={() => setAlertMessage('')}>
+              <AlertDescription>{alertMessage}</AlertDescription>
             </Alert>
+          )}
+
+          {currentSettings && (
+            <Alert message={`Currently showing: ${currentSettings.content} view`} type="info" />
           )}
 
           <div className="grid gap-6">
@@ -224,7 +249,7 @@ const AdminPanel = () => {
                   />
                   <input
                     type="text"
-                    placeholder="Event description"
+                    placeholder="Event"
                     value={item.event}
                     onChange={(e) => handleScheduleChange(index, 'event', e.target.value)}
                     className="flex-1 px-3 py-2 border rounded"
