@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HospitalDisplay from './components/HospitalDisplay';
 import AdminPanel from './components/AdminPanel';
 import NavigationHeader from './components/NavigationHeader'; 
-import { AuthProvider, Login, ProtectedRoute } from './components/Auth'; // Import AuthProvider, Login, and ProtectedRoute
+import { AuthProvider, Login, ProtectedRoute } from './components/AuthContext'; // Corrected import
 import './App.css';
 
 const App = () => {
