@@ -16,7 +16,7 @@ const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     // Replace with your desired username/password
-    if (username === 'admin' && password === 'hospital123') {
+    if (username === 'admin' && password === 'hospital') {
       auth.signIn(() => {
         localStorage.setItem('isAuthenticated', 'true');
       });
