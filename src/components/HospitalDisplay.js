@@ -1,7 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';  // Removed unused imports
 
 const HospitalDisplay = () => {
-  // Extract video ID from your YouTube URL
   const videoId = "D8-Zus1IAvk";
 
   return (
