@@ -3,12 +3,15 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HospitalDisplay from './components/HospitalDisplay';
 import AdminPanel from './components/AdminPanel';
+import NavigationHeader from './components/NavigationHeader'; // Import NavigationHeader
+
 import './App.css';
 
 const App = () => {
   return (
     <Router>
       <div className="App">
+        <NavigationHeader /> {/* Add NavigationHeader here */}
         <Routes>
           <Route path="/" element={<HospitalDisplay />} />
           <Route path="/admin" element={<AdminPanel />} />
