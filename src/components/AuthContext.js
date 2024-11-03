@@ -1,49 +1,55 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+// AuthContext.js
+import { createContext, useContext, useState, useEffect } from 'react';
+import { 
+  signInWithEmailAndPassword, 
+  onAuthStateChanged,
+  signOut 
+} from 'firebase/auth';
+import { auth } from '../firebase';
 
-export const AuthContext = createContext(null);
+const AuthContext = createContext({});
 
-// Define useAuth before using it
-const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
-};
-
-export const AuthProvider = ({ children }) => {
+export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate checking authentication status
-    const checkAuthStatus = () => {
-      const storedUser = localStorage.getItem('user');
-      if (storedUser) {
-        setUser(JSON.parse(storedUser));
-      }
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
       setLoading(false);
-    };
+      console.log('Auth state changed:', { 
+        isAuthenticated: Boolean(user),
+        userEmail: user?.email,
+        uid: user?.uid 
+      });
+    });
 
-    checkAuthStatus();
+    return unsubscribe;
   }, []);
 
-  const login = (userData) => {
-    setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
+  const login = async (email, password) => {
+    console.log('Login attempt starting...', { email });
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      console.log('Login successful:', userCredential.user.email);
+      return userCredential;
+    } catch (error) {
+      console.error('Login error:', { 
+        code: error.code,
+        message: error.message,
+        email 
+      });
+      throw error;
+    }
   };
 
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem('user');
-  };
+  const logout = () => signOut(auth);
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading, useAuth }}>
-      {children}
+    <AuthContext.Provider value={{ user, login, logout, loading }}>
+      {!loading && children}
     </AuthContext.Provider>
   );
-};
+}
 
-// Export the useAuth hook
-export { useAuth };
+export const useAuth = () => useContext(AuthContext);
