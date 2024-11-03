@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { subscribeToDisplayChanges } from '../services/displayControl';
-import { Card, CardContent, CardHeader, CardTitle } from './ui/Card'; // Adjust according to the relative path
 
 const HospitalDisplay = () => {
   const [displaySettings, setDisplaySettings] = useState({
@@ -10,7 +9,6 @@ const HospitalDisplay = () => {
   });
 
   useEffect(() => {
-    // Subscribe to Firebase changes
     const displayId = '1';
     const unsubscribe = subscribeToDisplayChanges(displayId, (newSettings) => {
       if (newSettings) {
@@ -26,10 +24,10 @@ const HospitalDisplay = () => {
 
   // Default YouTube View
   const DefaultView = () => (
-    <div className="min-h-screen bg-black flex items-center justify-center">
+    <div className="fixed inset-0 w-full h-full bg-black">
       <iframe
-        className="w-full h-screen"
-        src={`https://www.youtube.com/embed/${displaySettings.videoId}?autoplay=1&mute=1&loop=1&playlist=${displaySettings.videoId}`}
+        className="w-full h-full"
+        src={`https://www.youtube.com/embed/${displaySettings.videoId}?autoplay=1&mute=1&loop=1&playlist=${displaySettings.videoId}&controls=0&showinfo=0&rel=0`}
         title="Hospital Display"
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -40,8 +38,8 @@ const HospitalDisplay = () => {
 
   // Emergency View
   const EmergencyView = () => (
-    <div className="min-h-screen bg-red-600 flex items-center justify-center">
-      <div className="text-white text-center">
+    <div className="fixed inset-0 w-full h-full bg-red-600 flex items-center justify-center">
+      <div className="text-white text-center p-8">
         <h1 className="text-6xl font-bold mb-4">⚠️ EMERGENCY ALERT</h1>
         <p className="text-2xl">{displaySettings.emergencyMessage || 'Please follow staff instructions'}</p>
       </div>
@@ -50,7 +48,7 @@ const HospitalDisplay = () => {
 
   // Announcements View
   const AnnouncementsView = () => (
-    <div className="min-h-screen bg-blue-600 flex items-center justify-center">
+    <div className="fixed inset-0 w-full h-full bg-blue-600 flex items-center justify-center">
       <div className="text-white text-center p-8">
         <h1 className="text-4xl font-bold mb-6">Hospital Announcements</h1>
         <div className="text-2xl space-y-4">
@@ -64,7 +62,7 @@ const HospitalDisplay = () => {
 
   // Schedule View
   const ScheduleView = () => (
-    <div className="min-h-screen bg-gray-800 flex items-center justify-center">
+    <div className="fixed inset-0 w-full h-full bg-gray-800 flex items-center justify-center">
       <div className="text-white text-center p-8">
         <h1 className="text-4xl font-bold mb-6">Today's Schedule</h1>
         <div className="text-2xl space-y-4">
@@ -81,7 +79,7 @@ const HospitalDisplay = () => {
 
   // Offline View
   const OfflineView = () => (
-    <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+    <div className="fixed inset-0 w-full h-full bg-gray-900 flex items-center justify-center">
       <div className="text-white text-center">
         <h1 className="text-4xl font-bold mb-4">Display Offline</h1>
         <p className="text-xl">Please contact technical support</p>
@@ -98,23 +96,15 @@ const HospitalDisplay = () => {
         return <AnnouncementsView />;
       case 'schedule':
         return <ScheduleView />;
+      case 'default':
+        return <DefaultView />;
       default:
-        return (
-          <div className="p-4">
-            <DefaultView />
-            <Card 
-              title="Welcome to Our Hospital"
-              content="We are committed to providing quality healthcare."
-              footer="Contact us for more information"
-            />
-            {/* Add more Card components as needed */}
-          </div>
-        );
+        return <DefaultView />;
     }
   };
 
   return (
-    <div>
+    <div className="relative w-screen h-screen overflow-hidden">
       {displaySettings.status === 'online' ? renderContent() : <OfflineView />}
     </div>
   );

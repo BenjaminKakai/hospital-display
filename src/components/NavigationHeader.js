@@ -1,28 +1,38 @@
+// src/components/NavigationHeader.js
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Monitor, Settings } from 'lucide-react';
+import { useAuth } from './AuthContext';
 
 const NavigationHeader = () => {
+  const { user, signOut } = useAuth();
+
   return (
-    <div className="bg-gray-800 text-white p-4">
-      <div className="max-w-4xl mx-auto flex justify-between items-center">
-        <Link 
-          to="/" 
-          className="flex items-center gap-2 hover:text-gray-300 transition-colors"
-        >
-          <Monitor className="w-5 h-5" />
-          <span className="font-semibold">Hospital Display</span>
-        </Link>
-        
-        <Link 
-          to="/admin" 
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 rounded hover:bg-blue-700 transition-colors"
-        >
-          <Settings className="w-5 h-5" />
-          <span>Admin Panel</span>
-        </Link>
+    <header className="bg-white shadow">
+      <div className="max-w-7xl mx-auto px-4 py-4">
+        <div className="flex justify-between items-center">
+          <h1 className="text-xl font-semibold text-gray-900">Hospital Display</h1>
+          <nav className="flex items-center space-x-4">
+            {user ? (
+              <>
+                <Link to="/admin" className="text-gray-600 hover:text-gray-900">
+                  Admin Panel
+                </Link>
+                <button
+                  onClick={signOut}
+                  className="text-gray-600 hover:text-gray-900"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <Link to="/login" className="text-gray-600 hover:text-gray-900">
+                Login
+              </Link>
+            )}
+          </nav>
+        </div>
       </div>
-    </div>
+    </header>
   );
 };
 
