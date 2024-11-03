@@ -1,28 +1,39 @@
-# Hospital Display Video Player
+# Hospital Display Management System
 
-A minimalist React application designed for continuous video playback in hospital environments. This application provides a clean, fullscreen interface for displaying informational or educational content on hospital displays.
+A comprehensive React application for managing hospital information displays, featuring real-time content management, emergency alerts, announcements, and scheduling capabilities. Built with React, Firebase, and Tailwind CSS.
 
 ## 🚀 Features
 
-- **Fullscreen Video Display**: Automatically fills the entire screen for optimal visibility
-- **Auto-play Functionality**: Starts playing immediately upon page load
-- **Continuous Playback**: Videos loop seamlessly for uninterrupted display
-- **Responsive Design**: Adapts to any screen size or orientation
-- **Browser Compatible**: Implements standard muting for autoplay compliance
-- **Clean Interface**: No distracting elements or controls
+### **Multi-Mode Display System**
+- **Default Video Display**: Continuous playback of informational content
+- **Emergency Alerts**: Immediate broadcast of critical messages
+- **Announcements Board**: Multiple announcement management
+- **Schedule Display**: Daily events and timing management
+
+### **Secure Admin Panel**
+- **Protected Routes** with Authentication
+- **Real-time Content Management**
+- **User-friendly Interface**
+
+### **Firebase Integration**
+- **Real-time Database Updates**
+- **Secure Authentication**
+- **Production and Development Environment Support**
 
 ## 📋 Prerequisites
 
-Before you begin, ensure you have installed:
+Before you begin, ensure you have:
 - Node.js (v14.0.0 or higher)
 - npm (v6.0.0 or higher)
+- Firebase Account
+- Git
 
 ## 🛠️ Installation
 
 1. Clone the repository:
 ```bash
 git clone [your-repository-url]
-cd hospital-display
+cd hospital-display-system
 ```
 
 2. Install dependencies:
@@ -30,54 +41,110 @@ cd hospital-display
 npm install
 ```
 
-3. Start the development server:
+3. Set up environment variables:
+Create a `.env` file with your Firebase configuration:
+```env
+REACT_APP_API_KEY=your_api_key
+REACT_APP_AUTH_DOMAIN=your_auth_domain
+REACT_APP_DATABASE_URL=your_database_url
+REACT_APP_PROJECT_ID=your_project_id
+REACT_APP_STORAGE_BUCKET=your_storage_bucket
+REACT_APP_MESSAGING_SENDER_ID=your_sender_id
+REACT_APP_APP_ID=your_app_id
+REACT_APP_USE_FIREBASE_EMULATOR=false
+```
+
+4. Start the development server:
 ```bash
 npm start
 ```
 
 ## 🔧 Configuration
 
-### Changing the Video
+### Firebase Setup
+1. Create a new Firebase project
+2. Enable Authentication and Realtime Database
+3. Add your web app to get configuration details
+4. Update environment variables with your Firebase config
 
-To change the displayed video, modify the `videoId` in `src/components/HospitalDisplay.js`:
+### Development Environment
+For local development with Firebase emulators:
+```bash
+# Start Firebase emulators
+firebase emulators:start
 
-```javascript
-const videoId = "YOUR_NEW_VIDEO_ID";
+# Set environment variable
+REACT_APP_USE_FIREBASE_EMULATOR=true
 ```
-
-The video ID can be found in YouTube URLs after `v=` (e.g., `youtube.com/watch?v=D8-Zus1IAvk` → `D8-Zus1IAvk`)
-
-## 🎨 Styling
-
-This project uses Tailwind CSS for styling. The main styling configurations can be found in:
-- `src/index.css` - Main stylesheet with Tailwind directives
-- `tailwind.config.js` - Tailwind configuration
 
 ## 📁 Project Structure
-
 ```
-hospital-display/
+hospital-display-system/
 ├── src/
 │   ├── components/
-│   │   └── HospitalDisplay.js
+│   │   ├── AdminPanel.js
+│   │   ├── AuthContext.js
+│   │   ├── HospitalDisplay.js
+│   │   ├── LoginPage.js
+│   │   ├── NavigationHeader.js
+│   │   └── ProtectedRoute.js
+│   ├── firebase.js
 │   ├── App.js
 │   ├── index.css
 │   └── index.js
+├── firebase.json
+├── .env
 ├── package.json
 └── tailwind.config.js
 ```
 
+## 💻 Usage
+
+### Admin Panel Features
+1. **Default View Management**
+   - Set YouTube video IDs for informational content
+   - Toggle fullscreen display
+
+2. **Emergency Alerts**
+   - Broadcast immediate emergency messages
+   - Override current display content
+
+3. **Announcements**
+   - Add/remove multiple announcements
+   - Real-time updates to display
+
+4. **Schedule Management**
+   - Add/edit daily events
+   - Set specific times and descriptions
+
+### Authentication
+- Secure admin login required for management features
+- Protected routes ensure unauthorized access prevention
+- Session management with Firebase Auth
+
 ## 🚀 Deployment
 
-This application is designed to be deployed on platforms like:
-- Netlify
-- Vercel
-- GitHub Pages
-
-For deployment, build the project using:
+1. Build the project:
 ```bash
 npm run build
 ```
+
+2. Deploy to Firebase:
+```bash
+firebase deploy
+```
+
+The application can also be deployed to:
+- Vercel
+- Netlify
+- Other static hosting services
+
+## 🔒 Security
+
+- All admin routes are protected
+- Firebase Authentication ensures secure access
+- Real-time Database rules should be configured for security
+- Environment variables protect sensitive configuration
 
 ## 🤝 Contributing
 
@@ -93,10 +160,15 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 🛟 Support
 
-For support, please contact [Your Contact Information]
+For support:
+1. Check the issues section
+2. Contact [Your Contact Information]
+3. Review Firebase documentation for backend-related queries
 
 ## 🙏 Acknowledgments
 
-- React.js team for the framework
-- Tailwind CSS for the styling utilities
-- YouTube for video hosting capabilities
+- React.js team
+- Firebase team
+- Tailwind CSS
+- Lucide Icons
+- shadcn/ui components
