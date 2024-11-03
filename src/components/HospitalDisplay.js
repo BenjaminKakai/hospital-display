@@ -5,7 +5,7 @@ const HospitalDisplay = () => {
   const [displaySettings, setDisplaySettings] = useState({
     content: 'default',
     status: 'online',
-    videoId: 'D8-Zus1IAvk'
+    videoId: '6Hwd6fzFGeA'
   });
 
   useEffect(() => {
@@ -27,8 +27,8 @@ const HospitalDisplay = () => {
     <div className="fixed inset-0 w-full h-full bg-black">
       <iframe
         className="w-full h-full"
-        src={`https://www.youtube.com/embed/${displaySettings.videoId}?autoplay=1&mute=1&loop=1&playlist=${displaySettings.videoId}&controls=0&showinfo=0&rel=0`}
-        title="Hospital Display"
+        src={`https://www.youtube.com/embed/${displaySettings.videoId}?autoplay=1&mute=1&loop=1&playlist=${displaySettings.videoId}`}
+        title="YouTube video player"
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
