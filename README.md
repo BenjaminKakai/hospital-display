@@ -1,6 +1,6 @@
 # Hospital Display Management System
 
-A comprehensive React application for managing hospital information displays, featuring real-time content management, emergency alerts, announcements, and scheduling capabilities. Built with React, Firebase, and Tailwind CSS.
+This is a comprehensive React application for managing hospital information displays, featuring real-time content management, emergency alerts, announcements, and scheduling capabilities. Built with React, Firebase, and Tailwind CSS.
 
 ## 🚀 Features
 
@@ -154,21 +154,11 @@ The application can also be deployed to:
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📝 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## 🛟 Support
 
 For support:
 1. Check the issues section
-2. Contact [Your Contact Information]
+2. Contact benjaminkakai@gmail.com
 3. Review Firebase documentation for backend-related queries
 
-## 🙏 Acknowledgments
-
-- React.js team
-- Firebase team
-- Tailwind CSS
-- Lucide Icons
-- shadcn/ui components
