@@ -162,3 +162,7 @@ For support:
 2. Contact benjaminkakai@gmail.com
 3. Review Firebase documentation for backend-related queries
 
+
+## Project link;
+https://hospitaldisplay.netlify.app/
+
